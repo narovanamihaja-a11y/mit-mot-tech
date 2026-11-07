@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIH-MOT-TECH — Édition Stable</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="bois">
+
+    <!-- 1. ÉCRAN DE CONNEXION -->
+    <div id="login-screen" class="auth-container">
+        <h1 class="main-title">MIH-MOT-TECH</h1>
+        <div class="auth-box">
+            <h3>CONNEXION</h3>
+            <input type="text" id="login-user" placeholder="Utilisateur">
+            <input type="password" id="login-pass" placeholder="Mot de passe">
+            <button onclick="handleLogin()">Entrer 🎮</button>
+            <p id="login-error" style="color:#ff3b30; font-size:0.8rem; margin-top:10px;"></p>
+        </div>
+        <button class="admin-hidden-trigger" onclick="promptAdminAccess()">⚙️ Panel Admin</button>
+    </div>
+
+    <!-- 2. PANNEAU D'ADMINISTRATION SECRET -->
+    <div id="admin-panel" class="modal hidden">
+        <div class="modal-content" style="max-width: 400px; max-height: 80vh; overflow-y: auto;">
+            <span class="close-modal" onclick="closeAdminPanel()">&times;</span>
+            <h2 style="color: white; margin-bottom: 10px;">PANEL ADMIN</h2>
+            <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                <h4 style="color: #ffd700;">Ajouter / Modifier un Utilisateur</h4>
+                <input type="text" id="admin-username" placeholder="Utilisateur" style="width:90%; margin:5px; padding:6px; border-radius: 5px; border: 1px solid #555; background: #222; color: #fff;">
+                <input type="text" id="admin-password" placeholder="Mot de passe" style="width:90%; margin:5px; padding:6px; border-radius: 5px; border: 1px solid #555; background: #222; color: #fff;">
+                <button onclick="saveUserFromAdmin()" style="background:#ff9500; color:white; padding:6px 12px; border:none; border-radius:5px; margin-top:5px; cursor:pointer; font-weight: bold;">Sauvegarder 💾</button>
+            </div>
+            <h4 style="color: white; margin-top: 15px;">Membres Actuels :</h4>
+            <div id="admin-users-list" style="text-align: left; margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <!-- 3. ZONE DE JEU PRINCIPALE -->
+    <div id="main-game-area" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100vh;">
+        <div class="dashboard">
+            <div class="theme-selector"><select id="theme-menu" onchange="changeTheme(this.value)"><option value="bois">🪵 Bois</option><option value="cyber">⚡ Cyber</option><option value="dark">🌙 Sombre</option></select></div>
+            <h2 style="color: #ffd700; font-size: 1.1rem;">MIH-MOT-TECH</h2>
+            <div class="currency-display"><span>🪙</span> <span id="coin-count">500</span></div>
+        </div>
+        <div class="game-header">
+            <div class="mode-tabs"><button id="btn-mode-aventure" class="tab-btn active" onclick="switchMode('aventure')">Aventure</button><button id="btn-mode-defi" class="tab-btn" onclick="switchMode('defi')">Défi</button></div>
+            <div id="level-badge" class="level-badge">NIVEAU 1</div>
+            <div class="utility-bar"><button class="util-btn" onclick="openCalendar()">📅 Calendrier</button><button class="util-btn" onclick="openWheelOfFortune()">🎰 Roue</button><button id="extra-btn" class="util-btn">🎁 Extras (<span id="extra-count">0</span>)</button></div>
+            <div id="grid-container"></div>
+        </div>
+        <div class="wheel-area"><div class="wheel-container"><canvas id="link-canvas"></canvas><div id="wheel-letters"></div></div></div>
+        <div class="controls-footer">
+            <button class="hint-action-btn" onclick="triggerHintSimple()"><span class="btn-icon">💡</span><span class="btn-label">Simple</span><span class="btn-price">100 🪙</span></button>
+            <button id="shuffle-btn" class="shuffle-action-btn">🔄</button>
+            <button class="hint-action-btn" onclick="triggerHintCible()"><span class="btn-icon">🎯</span><span class="btn-label">Ciblé</span><span class="btn-price">180 🪙</span></button>
+        </div>
+    </div>
+
+    <div id="game-modal" class="modal hidden"><div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span><div id="modal-body"></div></div></div>
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Antsoina mivantana eto ilay rakitra script.js tokana -->
+    <script src="script.js"></script>
+</body>
+</html>
